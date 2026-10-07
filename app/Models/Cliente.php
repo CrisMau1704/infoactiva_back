@@ -5,20 +5,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Regional extends Model
+class Cliente extends Model
 {
     use HasFactory;
 
-    protected $table = 'regionales';
-    protected $primaryKey = 'id_regional';
+    protected $table = 'clientes';
+    protected $primaryKey = 'id_cliente';
     public $timestamps = false;
 
     protected $fillable = [
         'nombre',
-        'ciudad',
-        'direccion',
-        'telefono',
+        'nit',
         'email',
+        'telefono',
+        'direccion',
         'estado',
         'fecha_creacion',
         'fecha_actualizacion',

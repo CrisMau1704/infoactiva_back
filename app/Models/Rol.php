@@ -11,19 +11,14 @@ class Rol extends Model
 
     protected $table = 'roles';
     protected $primaryKey = 'id_rol';
-    public $timestamps = false;
+
+    const CREATED_AT = 'fecha_creacion';
+    const UPDATED_AT = 'fecha_actualizacion';
 
     protected $fillable = [
-        'nombre', 
-        'descripcion', 
+        'nombre',
+        'descripcion',
         'nivel',
-        'fecha_creacion', 
-        'fecha_actualizacion',
-    ];
-
-    protected $casts = [
-        'fecha_creacion' => 'datetime',
-        'fecha_actualizacion' => 'datetime',
     ];
 
     public function usuarios()
@@ -38,7 +33,7 @@ class Rol extends Model
             'rol_permiso',
             'id_rol',
             'id_permiso'
-        )->withPivot('id_rol_permiso', 'fecha_creacion', 'fecha_actualizacion');
+        );
     }
 
     public function tienePermiso(string $codigo): bool

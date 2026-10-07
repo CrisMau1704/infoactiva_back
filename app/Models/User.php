@@ -13,7 +13,9 @@ class User extends Authenticatable
 
     protected $table = 'users';
     protected $primaryKey = 'id_usuario';
-    public $timestamps = false;
+
+    const CREATED_AT = 'fecha_creacion';
+    const UPDATED_AT = 'fecha_actualizacion';
 
     protected $fillable = [
         'nombre',
@@ -23,8 +25,6 @@ class User extends Authenticatable
         'id_regional',
         'id_almacen',
         'estado',
-        'fecha_creacion',
-        'fecha_actualizacion',
     ];
 
     protected $hidden = [
@@ -33,8 +33,6 @@ class User extends Authenticatable
 
     protected $casts = [
         'password' => 'hashed',
-        'fecha_creacion' => 'datetime',
-        'fecha_actualizacion' => 'datetime',
     ];
 
     public function rol()
@@ -61,7 +59,6 @@ class User extends Authenticatable
             ->exists();
     }
 
- 
     public function permisosCodigos(): array
     {
         if (!$this->rol) return [];

@@ -9,10 +9,7 @@ use Illuminate\Support\Facades\Validator;
 
 class ClienteController extends Controller
 {
-    /**
-     * Listar clientes con búsqueda y paginación
-     * GET /api/clientes
-     */
+    
     public function index(Request $request)
     {
         $query = Cliente::query();
@@ -52,10 +49,6 @@ class ClienteController extends Controller
         ], 200);
     }
 
-    /**
-     * Crear cliente
-     * POST /api/clientes
-     */
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -97,10 +90,6 @@ class ClienteController extends Controller
         ], 201);
     }
 
-    /**
-     * Mostrar un cliente específico
-     * GET /api/clientes/{id}
-     */
     public function show(string $id)
     {
         $cliente = Cliente::with(['regionales', 'areas'])->find($id);
@@ -118,10 +107,7 @@ class ClienteController extends Controller
         ], 200);
     }
 
-    /**
-     * Actualizar cliente
-     * PUT/PATCH /api/clientes/{id}
-     */
+ 
     public function update(Request $request, string $id)
     {
         $cliente = Cliente::find($id);
@@ -161,10 +147,7 @@ class ClienteController extends Controller
         ], 200);
     }
 
-    /**
-     * Eliminar cliente
-     * DELETE /api/clientes/{id}
-     */
+   
     public function destroy(string $id)
     {
         $cliente = Cliente::find($id);
