@@ -29,4 +29,8 @@ class Regional extends Model
         'fecha_actualizacion' => 'datetime',
     ];
 
+    public function almacenes()
+    {
+        return $this->hasMany(Almacen::class, 'id_regional', 'id_regional');
+    }
 }

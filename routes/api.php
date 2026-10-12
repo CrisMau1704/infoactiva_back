@@ -5,7 +5,10 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\ClienteController;
 use App\Http\Controllers\Api\RegionalController;
 use App\Http\Controllers\Api\UserController;
-USE App\Http\Controllers\Api\RolController;
+use App\Http\Controllers\Api\RolController;
+use App\Http\Controllers\Api\PermisoController;
+use App\Http\Controllers\Api\AlmacenController;
+
 
 
 // Rutas públicas (sin autenticación)
@@ -26,9 +29,30 @@ Route::middleware('auth:sanctum')->group(function () {
         ->middleware('permiso:usuarios.editar');
     Route::delete('/usuarios/{id}', [UserController::class, 'destroy'])
         ->middleware('permiso:usuarios.eliminar');
+    Route::get('/catalogos/usuarios', [UserController::class, 'catalogos'])
+    ->middleware('permiso:usuarios.ver');
 
-    Route::get('/roles', [RolController::class, 'index']);
-        //->middleware('permiso:roles.ver');
+   Route::get('/roles', [RolController::class, 'index'])
+    ->middleware('permiso:roles.ver');
+Route::post('/roles', [RolController::class, 'store'])
+    ->middleware('permiso:roles.crear');
+Route::get('/roles/{id}', [RolController::class, 'show'])
+    ->middleware('permiso:roles.ver');
+Route::put('/roles/{id}', [RolController::class, 'update'])
+    ->middleware('permiso:roles.editar');
+Route::delete('/roles/{id}', [RolController::class, 'destroy'])
+    ->middleware('permiso:roles.eliminar');
+Route::put('/roles/{id}/permisos', [RolController::class, 'syncPermisos'])
+    ->middleware('permiso:roles.editar');
+
+    Route::get('/permisos', [PermisoController::class, 'index'])
+    ->middleware('permiso:permisos.ver,roles.ver');
+Route::post('/permisos', [PermisoController::class, 'store'])
+    ->middleware('permiso:permisos.crear');
+Route::put('/permisos/{id}', [PermisoController::class, 'update'])
+    ->middleware('permiso:permisos.editar');
+Route::delete('/permisos/{id}', [PermisoController::class, 'destroy'])
+    ->middleware('permiso:permisos.eliminar');
    
 
     Route::get('/clientes', [ClienteController::class, 'index'])
@@ -53,4 +77,17 @@ Route::middleware('auth:sanctum')->group(function () {
         ->middleware('permiso:regionales.editar');
     Route::delete('/regionales/{id}', [RegionalController::class, 'destroy'])
         ->middleware('permiso:regionales.eliminar');
+
+    Route::get('/catalogos/almacenes', [AlmacenController::class, 'catalogos'])
+    ->middleware('permiso:almacenes.ver');
+    Route::get('/almacenes', [AlmacenController::class, 'index'])
+        ->middleware('permiso:almacenes.ver');
+    Route::post('/almacenes', [AlmacenController::class, 'store'])
+        ->middleware('permiso:almacenes.crear');
+    Route::get('/almacenes/{id}', [AlmacenController::class, 'show'])
+        ->middleware('permiso:almacenes.ver');
+    Route::put('/almacenes/{id}', [AlmacenController::class, 'update'])
+        ->middleware('permiso:almacenes.editar');
+    Route::delete('/almacenes/{id}', [AlmacenController::class, 'destroy'])   // desactiva
+        ->middleware('permiso:almacenes.eliminar');
 });
