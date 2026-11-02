@@ -30,11 +30,16 @@ class Cliente extends Model
     ];
 
     // Relaciones
-    public function areas()
+     public function areas()
     {
-        return $this->hasMany(AreaCliente::class, 'id_cliente', 'id_cliente');
+        return $this->hasMany(
+            AreaCliente::class,
+            'id_cliente',
+            'id_cliente'
+        );
     }
 
+    // Un cliente puede estar habilitado en varias regionales
     public function regionales()
     {
         return $this->belongsToMany(
@@ -42,6 +47,21 @@ class Cliente extends Model
             'cliente_regional',
             'id_cliente',
             'id_regional'
-        )->withPivot('id_cliente_regional', 'estado', 'fecha_creacion', 'fecha_actualizacion');
+        )->withPivot(
+            'id_cliente_regional',
+            'estado',
+            'fecha_creacion',
+            'fecha_actualizacion'
+        );
+    }
+
+    // Registros de habilitación por regional
+    public function clienteRegionales()
+    {
+        return $this->hasMany(
+            ClienteRegional::class,
+            'id_cliente',
+            'id_cliente'
+        );
     }
 }

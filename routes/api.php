@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\ClienteController;
+use App\Http\Controllers\Api\AreaClienteController;
 use App\Http\Controllers\Api\RegionalController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\RolController;
@@ -65,6 +66,17 @@ Route::delete('/permisos/{id}', [PermisoController::class, 'destroy'])
         ->middleware('permiso:clientes.editar');
     Route::delete('/clientes/{id}', [ClienteController::class, 'destroy'])
         ->middleware('permiso:clientes.eliminar');
+
+    Route::get('/areas', [AreaClienteController::class, 'index'])
+        ->middleware('permiso:areas.ver');
+    Route::post('/areas', [AreaClienteController::class, 'store'])
+        ->middleware('permiso:areas.crear');
+    Route::get('/areas/{id}', [AreaClienteController::class, 'show'])
+        ->middleware('permiso:areas.ver');
+    Route::put('/areas/{id}', [AreaClienteController::class, 'update'])
+        ->middleware('permiso:areas.editar');
+    Route::delete('/areas/{id}', [AreaClienteController::class, 'destroy'])
+        ->middleware('permiso:areas.eliminar');
 
 
     Route::get('/regionales', [RegionalController::class, 'index'])
